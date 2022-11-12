@@ -113,6 +113,7 @@ contract BullBear is ERC721,ERC721Enumerable,ERC721URIStorage, AutomationCompati
             /*uint timeStamp*/,
             /*uint80 answeredInRound*/
         ) =priceFeed.latestRoundData();
+        //example price returned 3034715771688
         return price;
     }
 
