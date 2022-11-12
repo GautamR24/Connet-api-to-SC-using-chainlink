@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
@@ -11,12 +11,14 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 *importing chainlink contracts
  */
+// import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
+// import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
+
+import "@chainlink/contracts/src/v0.8/AutomationCompatible.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
-
-
-contract BullBear is ERC721,ERC721Enumerable,ERC721URIStorage, KeeperCompatibleInterface, Ownable 
+contract BullBear is ERC721,ERC721Enumerable,ERC721URIStorage, AutomationCompatibleInterface, Ownable 
 {
     using Counters for Counters.Counter;
 
@@ -74,11 +76,16 @@ contract BullBear is ERC721,ERC721Enumerable,ERC721URIStorage, KeeperCompatibleI
     /**
     below funtions need to overidden to work with chainlink */
 
-    function checkUpKeep(bytes calldata ) external view returns(bool upKeepNeeded, bytes memory ){
-        upKeepNeeded = (block.timestamp - lastTimeStamp) > interval;
+    function checkUpkeep(bytes calldata ) external view override returns(bool upKeepNeeded, bytes memory /*performData*/){
+        if(upKeepNeeded = (block.timestamp - lastTimeStamp) > interval){
+            return (true,bytes(" "));
+        }
+        else{
+            return (false,bytes(" "));
+        }
     }
 
-    function performUpKeep(bytes calldata) external {
+    function performUpkeep(bytes calldata) external override{
         if((block.timestamp - lastTimeStamp) > interval){
             lastTimeStamp = block.timestamp;
             int latestPrice = getLatestPrice();
