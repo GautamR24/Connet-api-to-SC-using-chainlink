@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
   const chain_contract = await hre.ethers.getContractFactory("BullBear");
-  const Chain_contract = await chain_contract.deploy(10,"0x9be00a10f26C4546927ddfACA4dFEC148F754986");
+  const Chain_contract = await chain_contract.deploy(10,"0xB223B311ccbe30595Ad650f6453035caAF42bf3E","0x2Ca8E0C643bDe4C2E08ab1fA0da3401AdAD7734D");
   await Chain_contract.deployed();
   console.log("Chain_contract deployed to", Chain_contract.address);
 
