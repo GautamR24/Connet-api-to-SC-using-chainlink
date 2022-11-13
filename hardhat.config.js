@@ -1,28 +1,39 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("dotenv");
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity:{ compilers: [
-    {
-      version: "0.8.4",
-    },
-    {
-      version: "0.8.0",
-    },
-    {
-      version: "0.8.1",
-    }
-  ],
-},
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.4",
+      },
+      {
+        version: "0.8.0",
+      },
+      {
+        version: "0.8.1",
+      }
+    ],
+  },
+  // networks: {
+  //   goerli: {
+  //     url: "https://eth-goerli.g.alchemy.com/v2/Pgda-GOHH0CHAfBH0jCmqfhvbwitCPp_",
+  //     accounts: ["1ee7a3c28042920680fec6b7a45cbe20d9d891a4c7eaf8de121b694e06e8a05b"]
+  //   }
+  // },
+  // etherscan: {
+  //   apiKey: "BUVFYBCKRN3PB5QC9IIUU68DRTBD6R7WMS"
+
+  // },
   networks: {
-    goerli: {
-      url: "https://eth-goerli.g.alchemy.com/v2/Pgda-GOHH0CHAfBH0jCmqfhvbwitCPp_",
-      accounts: ["1ee7a3c28042920680fec6b7a45cbe20d9d891a4c7eaf8de121b694e06e8a05b"]
-    }
+    mumbai: {
+      url: process.env.TESTNET_RPC,
+      accounts: [process.env.PRIVATE_KEY],
+    },
   },
   etherscan: {
-    apiKey: "BUVFYBCKRN3PB5QC9IIUU68DRTBD6R7WMS"
+    apiKey: process.env.POLYGONSCAN_API_KEY
 
   },
 };
